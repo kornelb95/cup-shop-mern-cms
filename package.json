@@ -1,0 +1,23 @@
+{
+  "name": "cup-shop",
+  "version": "1.0.0",
+  "description": "E-commerce shop with CMS",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "server": "nodemon"
+  },
+  "author": "korneliusz blazek",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
