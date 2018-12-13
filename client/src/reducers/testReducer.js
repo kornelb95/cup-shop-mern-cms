@@ -1,15 +1,14 @@
-import { INIT_APP } from "../actions/types";
-
+import { TEST } from "../actions/types";
 const initialState = {
-  initapp: false
+  test: false
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case INIT_APP:
+    case TEST:
       return {
         ...state,
-        initapp: true
+        test: !state.test
       };
     default:
       return state;
