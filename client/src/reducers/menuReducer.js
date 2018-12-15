@@ -1,14 +1,14 @@
-import { TEST } from "../actions/types";
+import { TOGGLE_MENU } from "../actions/types";
 const initialState = {
-  test: false
+  collapse: false
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case TEST:
+    case TOGGLE_MENU:
       return {
         ...state,
-        test: !state.test
+        collapse: !state.collapse
       };
     default:
       return state;
