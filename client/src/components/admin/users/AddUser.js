@@ -1,23 +1,18 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { register } from "../../actions/authActions";
+import { createUser } from "../../../actions/adminActions";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import "./register.css";
 
-class Register extends Component {
+class AddUser extends Component {
   state = {
     name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    role: ""
   };
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/");
-    }
-  }
 
   onSubmit = e => {
     e.preventDefault();
@@ -26,10 +21,11 @@ class Register extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
+      role: this.state.role
     };
 
-    this.props.register(newUser, this.props.history);
+    this.props.createUser(newUser, this.props.history);
   };
 
   onChange = e => {
@@ -44,7 +40,7 @@ class Register extends Component {
     return (
       <div className="container">
         <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
-          <h1>Załóż konto</h1>
+          <h1>Stwórz użytkownika</h1>
           <div className="form-label-group">
             <input
               type="text"
@@ -113,8 +109,19 @@ class Register extends Component {
             )}
             <label htmlFor="inputPassword2">Potwierdź hasło</label>
           </div>
+          <div className="form-label-group">
+            <select
+              name="role"
+              className="form-control"
+              onChange={this.onChange}
+            >
+              <option value="0">Administrator</option>
+              <option value="1">Moderator</option>
+              <option value="2">Zwykły użytkownik</option>
+            </select>
+          </div>
           <button className="btn btn-lg btn-dark btn-block" type="submit">
-            Załóż konto
+            Utwórz użytkownika
           </button>
         </form>
       </div>
@@ -122,8 +129,8 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
-  register: PropTypes.func.isRequired,
+AddUser.propTypes = {
+  createUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -133,5 +140,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { register }
-)(withRouter(Register));
+  { createUser }
+)(withRouter(AddUser));

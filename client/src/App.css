@@ -2,7 +2,6 @@ html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
-
 body {
   min-height: 100vh;
 
@@ -12,6 +11,10 @@ body {
     rgba(246, 246, 246, 1) 47%,
     rgba(237, 237, 237, 1) 100%
   );
+}
+.container {
+  margin-top: 100px;
+  min-height: 78vh;
 }
 @media (max-width: 991.98px) {
   .offcanvas-collapse {
@@ -35,10 +38,11 @@ body {
   }
 }
 .nav-scroller {
-  position: relative;
+  /* position: relative; */
   z-index: 2;
   height: 2.75rem;
   overflow-y: hidden;
+  margin-top: 56px;
 }
 .nav-scroller .nav {
   display: -ms-flexbox;

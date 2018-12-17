@@ -18,8 +18,7 @@ const UserSchema = new Schema({
     type: Number,
     required: true,
     min: 0,
-    max: 2,
-    default: 2
+    max: 2
   },
   date: {
     type: Date,

@@ -7,16 +7,28 @@ import classnames from "classnames";
 import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
+  handleLogout = () => {
+    this.props.toggleMenu();
+    this.props.logoutUser();
+  };
   render() {
     const guestNavLinks = (
       <React.Fragment>
         <li className="nav-item">
-          <Link className="nav-link" to="/login">
+          <Link
+            className="nav-link"
+            to="/login"
+            onClick={this.props.toggleMenu}
+          >
             Zaloguj się
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/register">
+          <Link
+            className="nav-link"
+            to="/register"
+            onClick={this.props.toggleMenu}
+          >
             Załóż konto
           </Link>
         </li>
@@ -24,8 +36,25 @@ class Navbar extends Component {
     );
     const loggedNavLinks = (
       <React.Fragment>
+        {this.props.auth.user.role === 0 ? (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/admin/users"
+              onClick={this.props.toggleMenu}
+            >
+              Panel Administracyjny
+            </Link>
+          </li>
+        ) : null}
         <li className="nav-item">
-          <Link className="nav-link" to="/" onClick={this.props.logoutUser}>
+          <Link className="nav-link" to="#" onClick={this.props.toggleMenu}>
+            <i className="fas fa-user" />
+            {this.props.auth.user.email}
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/" onClick={this.handleLogout}>
             Wyloguj
           </Link>
         </li>
@@ -53,7 +82,7 @@ class Navbar extends Component {
           )}
         >
           <ul className="navbar-nav">
-            {this.props.isAuthenticated ? loggedNavLinks : guestNavLinks}
+            {this.props.auth.isAuthenticated ? loggedNavLinks : guestNavLinks}
           </ul>
         </div>
       </nav>
@@ -64,12 +93,12 @@ Navbar.propTypes = {
   toggleMenu: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   collapse: PropTypes.bool.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   collapse: state.menu.collapse,
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 
 export default connect(

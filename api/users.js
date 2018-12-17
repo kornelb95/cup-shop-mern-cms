@@ -27,7 +27,8 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role ? req.body.role : 2
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -37,13 +38,74 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => res.json(user))
+            .catch(err => res.error(err));
+        });
+      });
+    }
+  });
+});
+router.post("/registerFb", (req, res) => {
+  const { errors, isValid } = validateRegisterInputData(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      const payload = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      };
+      jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+        res.json({
+          success: true,
+          // token: 'Bearer ' + token
+          token
+        });
+      });
+    } else {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role ? req.body.role : 2
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => {
+              const payload = {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+              };
+              jwt.sign(
+                payload,
+                keys.secretOrKey,
+                { expiresIn: 3600 },
+                (err, token) => {
+                  res.json({
+                    success: true,
+                    // token: 'Bearer ' + token
+                    token
+                  });
+                }
+              );
+            })
             .catch(err => console.error(err));
         });
       });
     }
   });
 });
-
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInputData(req.body);
   if (!isValid) {
