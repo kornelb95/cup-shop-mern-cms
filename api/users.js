@@ -2,13 +2,11 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
-const passport = require("passport");
 
+const keys = require("../config/keys");
+const User = require("../models/User");
 const validateRegisterInputData = require("../utils/validation/register");
 const validateLoginInputData = require("../utils/validation/login");
-
-const User = require("../models/User");
 
 router.get("/test", (req, res) => res.json({ msg: "Hello" }));
 
@@ -62,7 +60,6 @@ router.post("/registerFb", (req, res) => {
       jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
         res.json({
           success: true,
-          // token: 'Bearer ' + token
           token
         });
       });
@@ -94,7 +91,6 @@ router.post("/registerFb", (req, res) => {
                 (err, token) => {
                   res.json({
                     success: true,
-                    // token: 'Bearer ' + token
                     token
                   });
                 }
@@ -134,7 +130,6 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              // token: 'Bearer ' + token
               token
             });
           }

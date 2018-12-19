@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import FacebookLogin from "react-facebook-login";
 import { withRouter } from "react-router-dom";
-import "./login.css";
 import { connect } from "react-redux";
-import { login, loginFb } from "../../actions/authActions";
 import PropTypes from "prop-types";
-import classnames from "classnames";
+import FacebookLogin from "react-facebook-login";
+
+import { login, loginFb } from "../../actions/authActions";
+import TextInput from "../common/TextInput";
+
+import "./login.css";
 
 class Login extends Component {
   state = {
@@ -25,12 +27,12 @@ class Login extends Component {
     };
     this.props.login(userData);
   };
-  responseFacebook = response => {
+  responseFacebook = ({ name, email, id }) => {
     const userData = {
-      name: response.name,
-      email: response.email,
-      password: response.id,
-      password2: response.id
+      name,
+      email,
+      password: id,
+      password2: id
     };
     this.props.loginFb(userData);
   };
@@ -47,41 +49,24 @@ class Login extends Component {
       <div className="container">
         <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
           <h1 className="text-center">Logowanie</h1>
-          <div className="form-label-group">
-            <input
-              type="text"
-              name="email"
-              className={classnames("form-control", {
-                "is-invalid": errors.email
-              })}
-              placeholder="Adres email"
-              onChange={this.onChange}
-              value={this.state.email}
-              id="inputEmail"
-            />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email}</div>
-            )}
-            <label htmlFor="inputEmail">Adres email</label>
-          </div>
+          <TextInput
+            name="email"
+            id="email"
+            value={this.state.email}
+            errors={errors.email}
+            placeholder="Adres Email"
+            onChange={this.onChange}
+          />
+          <TextInput
+            type="password"
+            name="password"
+            id="password"
+            value={this.state.password}
+            errors={errors.password}
+            placeholder="Wpisz hasło"
+            onChange={this.onChange}
+          />
 
-          <div className="form-label-group">
-            <input
-              type="password"
-              name="password"
-              className={classnames("form-control", {
-                "is-invalid": errors.password
-              })}
-              placeholder="Hasło"
-              onChange={this.onChange}
-              value={this.state.password}
-              id="inputPassword"
-            />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password}</div>
-            )}
-            <label htmlFor="inputPassword">Hasło</label>
-          </div>
           <button className="btn btn-lg btn-dark btn-block" type="submit">
             Zaloguj
           </button>
@@ -92,6 +77,7 @@ class Login extends Component {
               fields="name,email,picture"
               callback={this.responseFacebook}
               icon="fa-facebook"
+              textButton="Logowanie przez Facebook"
             />
           </div>
         </form>

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createUser } from "../../../actions/adminActions";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import classnames from "classnames";
+
+import { createUser } from "../../../actions/adminActions";
+import TextInput from "../../common/TextInput";
+import Select from "../../common/Select";
 
 class AddUser extends Component {
   state = {
@@ -41,85 +43,58 @@ class AddUser extends Component {
       <div className="container">
         <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
           <h1>Stwórz użytkownika</h1>
-          <div className="form-label-group">
-            <input
-              type="text"
-              name="name"
-              className={classnames("form-control", {
-                "is-invalid": errors.name
-              })}
-              placeholder="Nazwa użytownika"
-              onChange={this.onChange}
-              value={this.state.name}
-              id="inputname"
-            />
-            {errors.name && (
-              <div className="invalid-feedback">{errors.name}</div>
-            )}
-            <label htmlFor="inputname">Nazwa użytownika</label>
-          </div>
-          <div className="form-label-group">
-            <input
-              type="text"
-              name="email"
-              className={classnames("form-control", {
-                "is-invalid": errors.email
-              })}
-              placeholder="Nazwa użytownika"
-              onChange={this.onChange}
-              value={this.state.email}
-              id="inputemail"
-            />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email}</div>
-            )}
-            <label htmlFor="inputemail">Adres email</label>
-          </div>
-          <div className="form-label-group">
-            <input
-              type="password"
-              name="password"
-              className={classnames("form-control", {
-                "is-invalid": errors.password
-              })}
-              placeholder="Hasło"
-              onChange={this.onChange}
-              value={this.state.password}
-              id="inputPassword"
-            />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password}</div>
-            )}
-            <label htmlFor="inputPassword">Hasło</label>
-          </div>
-          <div className="form-label-group">
-            <input
-              type="password"
-              name="password2"
-              className={classnames("form-control", {
-                "is-invalid": errors.password2
-              })}
-              placeholder="Potwierdź hasło"
-              onChange={this.onChange}
-              value={this.state.password2}
-              id="inputPassword2"
-            />
-            {errors.password2 && (
-              <div className="invalid-feedback">{errors.password2}</div>
-            )}
-            <label htmlFor="inputPassword2">Potwierdź hasło</label>
-          </div>
-          <div className="form-label-group">
-            <select
-              name="role"
-              className="form-control"
-              onChange={this.onChange}
-            >
-              <option value="0">Administrator</option>
-              <option value="1">Moderator</option>
-              <option value="2">Zwykły użytkownik</option>
-            </select>
-          </div>
+          <TextInput
+            name="name"
+            id="name"
+            value={this.state.name}
+            placeholder="Nazwa użytownika"
+            errors={errors.name}
+            onChange={this.onChange}
+          />
+          <TextInput
+            name="email"
+            id="email"
+            value={this.state.email}
+            placeholder="Adres email"
+            errors={errors.email}
+            onChange={this.onChange}
+          />
+          <TextInput
+            type="password"
+            name="password"
+            id="password"
+            value={this.state.password}
+            placeholder="Wpisz hasło"
+            errors={errors.password}
+            onChange={this.onChange}
+          />
+          <TextInput
+            type="password"
+            name="password2"
+            id="password2"
+            value={this.state.password2}
+            placeholder="Powtórz hasło"
+            errors={errors.password2}
+            onChange={this.onChange}
+          />
+          <Select
+            name="role"
+            onChange={this.onChange}
+            options={[
+              {
+                value: 0,
+                text: "Administrator"
+              },
+              {
+                value: 1,
+                text: "Moderator"
+              },
+              {
+                value: 2,
+                text: "Zwykły użytkownik"
+              }
+            ]}
+          />
           <button className="btn btn-lg btn-dark btn-block" type="submit">
             Utwórz użytkownika
           </button>

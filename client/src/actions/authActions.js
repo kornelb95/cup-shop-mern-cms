@@ -56,7 +56,6 @@ export const register = (userData, history) => dispatch => {
       history.push("/login");
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data === undefined ? {} : err.response.data

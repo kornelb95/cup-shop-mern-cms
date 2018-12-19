@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { register } from "../../actions/authActions";
 import PropTypes from "prop-types";
-import classnames from "classnames";
+
+import { register } from "../../actions/authActions";
+import TextInput from "../common/TextInput";
+
 import "./register.css";
 
 class Register extends Component {
@@ -45,74 +47,41 @@ class Register extends Component {
       <div className="container">
         <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
           <h1>Załóż konto</h1>
-          <div className="form-label-group">
-            <input
-              type="text"
-              name="name"
-              className={classnames("form-control", {
-                "is-invalid": errors.name
-              })}
-              placeholder="Nazwa użytownika"
-              onChange={this.onChange}
-              value={this.state.name}
-              id="inputname"
-            />
-            {errors.name && (
-              <div className="invalid-feedback">{errors.name}</div>
-            )}
-            <label htmlFor="inputname">Nazwa użytownika</label>
-          </div>
-          <div className="form-label-group">
-            <input
-              type="text"
-              name="email"
-              className={classnames("form-control", {
-                "is-invalid": errors.email
-              })}
-              placeholder="Nazwa użytownika"
-              onChange={this.onChange}
-              value={this.state.email}
-              id="inputemail"
-            />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email}</div>
-            )}
-            <label htmlFor="inputemail">Adres email</label>
-          </div>
-          <div className="form-label-group">
-            <input
-              type="password"
-              name="password"
-              className={classnames("form-control", {
-                "is-invalid": errors.password
-              })}
-              placeholder="Hasło"
-              onChange={this.onChange}
-              value={this.state.password}
-              id="inputPassword"
-            />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password}</div>
-            )}
-            <label htmlFor="inputPassword">Hasło</label>
-          </div>
-          <div className="form-label-group">
-            <input
-              type="password"
-              name="password2"
-              className={classnames("form-control", {
-                "is-invalid": errors.password2
-              })}
-              placeholder="Potwierdź hasło"
-              onChange={this.onChange}
-              value={this.state.password2}
-              id="inputPassword2"
-            />
-            {errors.password2 && (
-              <div className="invalid-feedback">{errors.password2}</div>
-            )}
-            <label htmlFor="inputPassword2">Potwierdź hasło</label>
-          </div>
+
+          <TextInput
+            name="name"
+            value={this.state.name}
+            id="name"
+            placeholder="Nazwa użytkownika"
+            errors={errors.name}
+            onChange={this.onChange}
+          />
+          <TextInput
+            name="email"
+            value={this.state.email}
+            id="email"
+            placeholder="Adres email"
+            errors={errors.email}
+            onChange={this.onChange}
+          />
+          <TextInput
+            type="password"
+            name="password"
+            value={this.state.password}
+            id="password"
+            placeholder="Wpisz hasło"
+            errors={errors.password}
+            onChange={this.onChange}
+          />
+          <TextInput
+            type="password"
+            name="password2"
+            value={this.state.password2}
+            id="password2"
+            placeholder="Wpisz potwierdzenie hasła"
+            errors={errors.password2}
+            onChange={this.onChange}
+          />
           <button className="btn btn-lg btn-dark btn-block" type="submit">
             Załóż konto
           </button>

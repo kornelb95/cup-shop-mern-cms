@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+
 const validateRegisterInputData = require("../../utils/validation/register");
 const validateUpdateUserData = require("../../utils/validation/updateUser");
 const User = require("../../models/User");
-const bcrypt = require("bcryptjs");
 
 router.get("/", (req, res) => {
   User.find()

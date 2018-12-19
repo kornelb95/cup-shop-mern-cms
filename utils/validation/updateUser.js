@@ -24,9 +24,7 @@ module.exports = function validateUpdateUserData(data) {
   if (!Validator.isEmail(data.email)) {
     errors.email = "Adres email jest nieprawidłowy";
   }
-  if (Validator.isEmpty(data.password)) {
-    errors.password = "Hasło jest wymagane";
-  }
+
   if (data.password !== "" || data.password2 !== "") {
     if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
       errors.password = "Hasło musi mieć od 6 do 30 znaków";
