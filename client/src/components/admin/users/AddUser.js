@@ -40,66 +40,64 @@ class AddUser extends Component {
     const { errors } = this.props;
 
     return (
-      <div className="container">
-        <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
-          <h1>Stwórz użytkownika</h1>
-          <TextInput
-            name="name"
-            id="name"
-            value={this.state.name}
-            placeholder="Nazwa użytownika"
-            errors={errors.name}
-            onChange={this.onChange}
-          />
-          <TextInput
-            name="email"
-            id="email"
-            value={this.state.email}
-            placeholder="Adres email"
-            errors={errors.email}
-            onChange={this.onChange}
-          />
-          <TextInput
-            type="password"
-            name="password"
-            id="password"
-            value={this.state.password}
-            placeholder="Wpisz hasło"
-            errors={errors.password}
-            onChange={this.onChange}
-          />
-          <TextInput
-            type="password"
-            name="password2"
-            id="password2"
-            value={this.state.password2}
-            placeholder="Powtórz hasło"
-            errors={errors.password2}
-            onChange={this.onChange}
-          />
-          <Select
-            name="role"
-            onChange={this.onChange}
-            options={[
-              {
-                value: 0,
-                text: "Administrator"
-              },
-              {
-                value: 1,
-                text: "Moderator"
-              },
-              {
-                value: 2,
-                text: "Zwykły użytkownik"
-              }
-            ]}
-          />
-          <button className="btn btn-lg btn-dark btn-block" type="submit">
-            Utwórz użytkownika
-          </button>
-        </form>
-      </div>
+      <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
+        <h1>Stwórz użytkownika</h1>
+        <TextInput
+          name="name"
+          id="name"
+          value={this.state.name}
+          placeholder="Nazwa użytownika"
+          errors={errors.name}
+          onChange={this.onChange}
+        />
+        <TextInput
+          name="email"
+          id="email"
+          value={this.state.email}
+          placeholder="Adres email"
+          errors={errors.email}
+          onChange={this.onChange}
+        />
+        <TextInput
+          type="password"
+          name="password"
+          id="password"
+          value={this.state.password}
+          placeholder="Wpisz hasło"
+          errors={errors.password}
+          onChange={this.onChange}
+        />
+        <TextInput
+          type="password"
+          name="password2"
+          id="password2"
+          value={this.state.password2}
+          placeholder="Powtórz hasło"
+          errors={errors.password2}
+          onChange={this.onChange}
+        />
+        <Select
+          name="role"
+          onChange={this.onChange}
+          options={[
+            {
+              value: 0,
+              text: "Administrator"
+            },
+            {
+              value: 1,
+              text: "Moderator"
+            },
+            {
+              value: 2,
+              text: "Zwykły użytkownik"
+            }
+          ]}
+        />
+        <button className="btn btn-lg btn-dark btn-block" type="submit">
+          Utwórz użytkownika
+        </button>
+      </form>
     );
   }
 }

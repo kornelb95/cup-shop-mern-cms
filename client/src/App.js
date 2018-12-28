@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import PrivateRoute from "./components/common/PrivateRoute";
+// import PrivateRoute from "./components/common/PrivateRoute";
 import store from "./store";
 import "./App.css";
 import setToken from "./functions/setToken";
@@ -13,9 +13,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Home from "./components/layout/Home";
 import Dashboard from "./components/admin/Dashboard";
-import AddUser from "./components/admin/users/AddUser";
 import Footer from "./components/layout/Footer";
-import EditUser from "./components/admin/users/EditUser";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -36,17 +34,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Switch>
-              <PrivateRoute exact path="/admin/users" component={Dashboard} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/admin/users/add" component={AddUser} />
-              <PrivateRoute
-                exact
-                path="/admin/users/edit/:id"
-                component={EditUser}
-              />
-            </Switch>
+            <Route path="/admin" component={Dashboard} />
             <Footer />
           </React.Fragment>
         </Router>

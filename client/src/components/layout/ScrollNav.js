@@ -15,8 +15,11 @@ class ScrollNav extends Component {
             <Link className="nav-link text-white" to="/admin/products">
               Produkty
             </Link>
-            <Link className="nav-link text-white" to="/admin/promo">
-              Promocje
+            <Link className="nav-link text-white" to="/admin/productTypes">
+              Typy produktów
+            </Link>
+            <Link className="nav-link text-white" to="/admin/productCategories">
+              Kategorie produktów
             </Link>
           </React.Fragment>
         );

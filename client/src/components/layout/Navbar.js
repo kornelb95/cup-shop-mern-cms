@@ -49,7 +49,7 @@ class Navbar extends Component {
         ) : null}
         <li className="nav-item">
           <Link className="nav-link" to="#" onClick={this.props.toggleMenu}>
-            <i className="fas fa-user" />
+            <i className="fas fa-user mr-1" />
             {this.props.auth.user.email}
           </Link>
         </li>

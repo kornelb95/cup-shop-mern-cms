@@ -1,8 +1,18 @@
 import React from "react";
-export default function Select({ name, id, value, options, errors, onChange }) {
+export default function Select({
+  name,
+  id,
+  value,
+  options,
+  errors,
+  onChange,
+  label
+}) {
   return (
-    <div className="form-label-group">
+    <div className="form-group">
+      <label htmlFor={id}>{label}</label>
       <select
+        id={id}
         value={value}
         name={name}
         className="form-control"

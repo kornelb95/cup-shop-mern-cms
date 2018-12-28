@@ -56,69 +56,67 @@ class AddUser extends Component {
   render() {
     const { errors } = this.props;
     return (
-      <div className="container">
-        <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
-          <h1>Edytuj dane</h1>
-          <TextInputDefault
-            name="email"
-            id="email"
-            defaultValue={this.state.email}
-            placeholder="Adres Email"
-            errors={errors.email}
-            onChange={this.onChange}
-            disabled={true}
-          />
-          <TextInputDefault
-            name="name"
-            id="name"
-            defaultValue={this.state.name}
-            placeholder="Nazwa użytkownika"
-            errors={errors.name}
-            onChange={this.onChange}
-          />
-          <TextInput
-            type="password"
-            name="password"
-            id="password"
-            value={this.state.password}
-            placeholder="Wpisz hasło"
-            errors={errors.password}
-            onChange={this.onChange}
-          />
-          <TextInput
-            type="password"
-            name="password2"
-            id="password2"
-            value={this.state.password2}
-            placeholder="Powtórz hasło"
-            errors={errors.password2}
-            onChange={this.onChange}
-          />
-          <Select
-            name="role"
-            onChange={this.onChange}
-            value={this.state.role}
-            options={[
-              {
-                value: 0,
-                text: "Administrator"
-              },
-              {
-                value: 1,
-                text: "Moderator"
-              },
-              {
-                value: 2,
-                text: "Zwykły użytkownik"
-              }
-            ]}
-          />
+      <form className="form-signin mt-5 p-5" onSubmit={this.onSubmit}>
+        <h1>Edytuj dane</h1>
+        <TextInputDefault
+          name="email"
+          id="email"
+          defaultValue={this.state.email}
+          placeholder="Adres Email"
+          errors={errors.email}
+          onChange={this.onChange}
+          disabled={true}
+        />
+        <TextInputDefault
+          name="name"
+          id="name"
+          defaultValue={this.state.name}
+          placeholder="Nazwa użytkownika"
+          errors={errors.name}
+          onChange={this.onChange}
+        />
+        <TextInput
+          type="password"
+          name="password"
+          id="password"
+          value={this.state.password}
+          placeholder="Wpisz hasło"
+          errors={errors.password}
+          onChange={this.onChange}
+        />
+        <TextInput
+          type="password"
+          name="password2"
+          id="password2"
+          value={this.state.password2}
+          placeholder="Powtórz hasło"
+          errors={errors.password2}
+          onChange={this.onChange}
+        />
+        <Select
+          name="role"
+          onChange={this.onChange}
+          value={this.state.role}
+          options={[
+            {
+              value: 0,
+              text: "Administrator"
+            },
+            {
+              value: 1,
+              text: "Moderator"
+            },
+            {
+              value: 2,
+              text: "Zwykły użytkownik"
+            }
+          ]}
+        />
 
-          <button className="btn btn-lg btn-dark btn-block" type="submit">
-            Zmień dane
-          </button>
-        </form>
-      </div>
+        <button className="btn btn-lg btn-dark btn-block" type="submit">
+          Zmień dane
+        </button>
+      </form>
     );
   }
 }

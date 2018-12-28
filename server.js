@@ -2,21 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-// const passport = require("passport");
-// const path = require("path");
-
-const apiUsers = require("./api/users");
+const passport = require("passport");
+//api
+const apiAuth = require("./api/auth");
 const apiAdminUsers = require("./api/admin/users");
-
-//Database
+const apiAdminProductCategory = require("./api/admin/productCategory");
+const apiAdminProductType = require("./api/admin/productType");
+const apiAdminProduct = require("./api/admin/product");
+//MongoDB
 const db = require("./config/keys").mongoURI;
-const app = express();
-
-// Body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
 mongoose
   .connect(
     db,
@@ -25,9 +19,21 @@ mongoose
   .then(() => console.log("MongoDB connected successfully"))
   .catch(err => console.error(err));
 
+const app = express();
+// Passport Config
+require("./config/passport")(passport);
+
+// Middlewares
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(passport.initialize());
 //Api routes
-app.use("/users", apiUsers);
+app.use("/users", apiAuth);
 app.use("/admin/users", apiAdminUsers);
+app.use("/admin/productCategories", apiAdminProductCategory);
+app.use("/admin/productTypes", apiAdminProductType);
+app.use("/admin/products", apiAdminProduct);
 
 const port = process.env.PORT || 5000;
 

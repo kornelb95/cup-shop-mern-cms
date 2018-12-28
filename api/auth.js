@@ -8,8 +8,6 @@ const User = require("../models/User");
 const validateRegisterInputData = require("../utils/validation/register");
 const validateLoginInputData = require("../utils/validation/login");
 
-router.get("/test", (req, res) => res.json({ msg: "Hello" }));
-
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInputData(req.body);
 
@@ -60,7 +58,7 @@ router.post("/registerFb", (req, res) => {
       jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
         res.json({
           success: true,
-          token
+          token: "Bearer " + token
         });
       });
     } else {
@@ -130,7 +128,7 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token
+              token: "Bearer " + token
             });
           }
         );

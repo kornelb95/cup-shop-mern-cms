@@ -1,28 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { fetchUsers, deleteUser } from "../../../actions/adminActions";
-import Spinner from "../../common/Spinner";
 import { Link } from "react-router-dom";
-class Users extends Component {
+import PropTypes from "prop-types";
+
+import {
+  fetchProductCategories,
+  deleteProductCategory
+} from "../../../actions/adminActions";
+import Spinner from "../../common/Spinner";
+
+class ProductCategories extends Component {
   componentDidMount() {
-    this.props.fetchUsers();
+    this.props.fetchProductCategories();
   }
   render() {
-    let { users, loading } = this.props.admin;
+    let { prodCategories, loading } = this.props.admin;
     let content;
     if (loading) {
       content = <Spinner />;
     } else {
-      users = Object.values(users);
-      let rows = users.map(user => (
-        <tr key={user._id}>
-          <td>{user.email}</td>
-          <td>{user.name}</td>
-          <td>{user.role}</td>
+      prodCategories = Object.values(prodCategories);
+      let rows = prodCategories.map(prodCategory => (
+        <tr key={prodCategory._id}>
+          <td>{prodCategory.name}</td>
+          <td>{prodCategory.hidden ? "Tak" : "Nie"}</td>
           <td className="text-right">
             <Link
-              to={`/admin/users/edit/${user._id}`}
+              to={`/admin/product/edit/${prodCategory._id}`}
               className="btn btn-primary"
             >
               <i className="fas fa-edit" />
@@ -32,7 +36,10 @@ class Users extends Component {
             <button
               type="button"
               className="btn btn-danger"
-              onClick={this.props.deleteUser.bind(this, user._id)}
+              onClick={this.props.deleteProductCategory.bind(
+                this,
+                prodCategory._id
+              )}
             >
               <i className="fas fa-trash-alt" />
             </button>
@@ -44,9 +51,8 @@ class Users extends Component {
           <table className="table">
             <thead className="thead-dark">
               <tr>
-                <th scope="col">Email</th>
                 <th scope="col">Nazwa</th>
-                <th scope="col">Rola</th>
+                <th scope="col">Schowany</th>
                 <th />
                 <th />
               </tr>
@@ -58,10 +64,13 @@ class Users extends Component {
     }
     return (
       <React.Fragment>
-        <h1 className="text-center w-100 mt-2">Użytkownicy</h1>
+        <h1 className="text-center w-100 mt-2">Kategorie produktów</h1>
         <div className="w-100">
-          <Link to="/admin/users/add" className="btn btn-outline-success my-3">
-            Utwórz użytkownika
+          <Link
+            to="/admin/productCategories/add"
+            className="btn btn-outline-success m-3"
+          >
+            Utwórz kategorię
           </Link>
         </div>
         {content}
@@ -70,10 +79,10 @@ class Users extends Component {
   }
 }
 
-Users.propTypes = {
+ProductCategories.propTypes = {
   admin: PropTypes.object.isRequired,
-  fetchUsers: PropTypes.func.isRequired,
-  deleteUser: PropTypes.func.isRequired
+  fetchProductCategories: PropTypes.func.isRequired,
+  deleteProductCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -81,5 +90,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { fetchUsers, deleteUser }
-)(Users);
+  { fetchProductCategories, deleteProductCategory }
+)(ProductCategories);
