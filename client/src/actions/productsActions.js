@@ -4,7 +4,9 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT_TYPES,
   GET_PRODUCT_CATEGORIES,
-  ADD_PRODUCT_TO_CART
+  ADD_PRODUCT_TO_CART,
+  SUBTRACT_PRODUCT_TO_CART,
+  DELETE_FROM_CART
 } from "./types";
 
 export const setLoading = () => {
@@ -42,6 +44,18 @@ export const fetchProductTypes = () => dispatch => {
 export const addProductToCart = data => dispatch => {
   dispatch({
     type: ADD_PRODUCT_TO_CART,
+    payload: data
+  });
+};
+export const subtractProductFromCart = data => dispatch => {
+  dispatch({
+    type: SUBTRACT_PRODUCT_TO_CART,
+    payload: data
+  });
+};
+export const deleteProductFromCart = data => dispatch => {
+  dispatch({
+    type: DELETE_FROM_CART,
     payload: data
   });
 };

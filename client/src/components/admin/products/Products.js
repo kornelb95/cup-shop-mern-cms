@@ -24,6 +24,7 @@ class Products extends Component {
           <td>{product.productType.name}</td>
           <td>{product.description}</td>
           <td>{product.price}</td>
+          <td>{product.limit}</td>
           <td>
             <img
               src={require(`../../../../../uploads/${product.productImage}`)}
@@ -60,6 +61,7 @@ class Products extends Component {
                 <th scope="col">Typ</th>
                 <th scope="col">Opis</th>
                 <th scope="col">Cena</th>
+                <th scope="col">Magazyn</th>
                 <th>Zdjęcie</th>
                 <th />
                 <th />

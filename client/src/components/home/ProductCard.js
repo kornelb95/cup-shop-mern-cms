@@ -13,7 +13,7 @@ class ProductCard extends Component {
   };
   render() {
     return (
-      <div className="card my-5 col-md-3">
+      <div className="card my-5 offset-md-1 col-md-3 ">
         <img
           className="card-img-top my-3"
           style={{ height: "200px" }}

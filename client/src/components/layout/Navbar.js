@@ -106,7 +106,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <Link className="navbar-brand mr-auto mr-lg-0" to="/">
-          Cup Shop
+          Sklepik
         </Link>
         <button
           className="navbar-toggler p-0 border-0"

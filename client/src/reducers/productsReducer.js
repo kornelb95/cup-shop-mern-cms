@@ -3,7 +3,9 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT_TYPES,
   GET_PRODUCT_CATEGORIES,
-  ADD_PRODUCT_TO_CART
+  ADD_PRODUCT_TO_CART,
+  SUBTRACT_PRODUCT_TO_CART,
+  DELETE_FROM_CART
 } from "../actions/types";
 
 const initialState = {
@@ -61,7 +63,17 @@ export default function(state = initialState, action) {
           ]
         };
       }
-
+    case SUBTRACT_PRODUCT_TO_CART:
+      let item = state.cart.find(item => item.id === action.payload);
+      item.quantity = item.quantity - 1;
+      return {
+        ...state
+      };
+    case DELETE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter(cartitem => cartitem.id !== action.payload)
+      };
     default:
       return state;
   }
