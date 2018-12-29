@@ -9,7 +9,7 @@ import Checkbox from "../../common/Checkbox";
 class AddProductCategory extends Component {
   state = {
     name: "",
-    hidden: ""
+    hidden: false
   };
 
   onSubmit = e => {

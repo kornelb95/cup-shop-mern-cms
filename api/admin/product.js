@@ -1,8 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-
+const multer = require("multer");
 const Product = require("../../models/Product");
+const uuidv4 = require("uuid/v4");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+    cb(null, newFilename);
+  }
+});
+const upload = multer({ storage });
 
 router.get("/", (req, res) => {
   Product.find()
@@ -16,7 +29,10 @@ router.get("/", (req, res) => {
 
 router.post(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  [
+    passport.authenticate("jwt", { session: false }),
+    upload.single("productImage")
+  ],
   (req, res) => {
     const {
       name,
@@ -24,7 +40,7 @@ router.post(
       productCategory,
       description,
       price,
-      purches
+      limit
     } = req.body;
     const product = new Product({
       name,
@@ -32,12 +48,13 @@ router.post(
       productType,
       description,
       price,
-      purches
+      limit,
+      productImage: req.file.filename
     });
     product
       .save()
       .then(product => res.json(product))
-      .catch(err => res.error(err));
+      .catch(err => res.json(err));
   }
 );
 router.delete(

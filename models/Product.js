@@ -22,13 +22,18 @@ const ProductSchema = new Schema({
     required: true,
     min: 0
   },
-  purches: {
+  limit: {
     type: Number,
+    required: true,
     min: 0
   },
+  purches: {
+    type: Number,
+    min: 0,
+    default: 0
+  },
   productImage: {
-    type: String,
-    required: true
+    type: String
   }
 });
 module.exports = Product = mongoose.model("product", ProductSchema);

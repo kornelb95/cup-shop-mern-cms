@@ -20,8 +20,17 @@ class Products extends Component {
       let rows = products.map(product => (
         <tr key={product._id}>
           <td>{product.name}</td>
+          <td>{product.productCategory.name}</td>
+          <td>{product.productType.name}</td>
           <td>{product.description}</td>
           <td>{product.price}</td>
+          <td>
+            <img
+              src={require(`../../../../../uploads/${product.productImage}`)}
+              alt=""
+              style={{ width: "50px", height: "50px" }}
+            />
+          </td>
           <td className="text-right">
             <Link
               to={`/admin/product/edit/${product._id}`}
@@ -47,8 +56,11 @@ class Products extends Component {
             <thead className="thead-dark">
               <tr>
                 <th scope="col">Nazwa</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Typ</th>
                 <th scope="col">Opis</th>
                 <th scope="col">Cena</th>
+                <th>Zdjęcie</th>
                 <th />
                 <th />
               </tr>

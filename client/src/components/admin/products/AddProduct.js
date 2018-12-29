@@ -17,7 +17,9 @@ class AddProduct extends Component {
     productType: "",
     productCategory: "",
     description: "",
-    price: ""
+    price: "",
+    limit: 0,
+    productImage: ""
   };
 
   componentDidMount() {
@@ -27,17 +29,17 @@ class AddProduct extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    let formData = new FormData();
 
-    const newProduct = {
-      name: this.state.name,
-      productType: this.state.productType,
-      productCategory: this.state.productCategory,
-      descritpion: this.state.descritpion,
-      price: this.state.price,
-      purches: this.state.purches
-    };
+    formData.append("name", this.state.name);
+    formData.append("productType", this.state.productType);
+    formData.append("productCategory", this.state.productCategory);
+    formData.append("description", this.state.description);
+    formData.append("price", this.state.price);
+    formData.append("productImage", this.state.productImage);
+    formData.append("limit", this.state.limit);
 
-    this.props.createProduct(newProduct, this.props.history);
+    this.props.createProduct(formData, this.props.history);
   };
 
   onChange = e => {
@@ -45,7 +47,11 @@ class AddProduct extends Component {
       [e.target.name]: e.target.value
     });
   };
-
+  handleFileOnChange = e => {
+    this.setState({
+      [e.target.name]: e.target.files[0]
+    });
+  };
   render() {
     const { errors } = this.props;
 
@@ -60,6 +66,16 @@ class AddProduct extends Component {
           errors={errors.name}
           onChange={this.onChange}
         />
+        <div className="form-group">
+          <label htmlFor="productImage">Zdjęcie produktu</label>
+          <input
+            type="file"
+            name="productImage"
+            className="form-control-file"
+            id="productImage"
+            onChange={this.handleFileOnChange}
+          />
+        </div>
         <Select
           name="productType"
           id="productType"
@@ -108,6 +124,20 @@ class AddProduct extends Component {
             id="price"
             value={this.state.price}
             errors={errors.price}
+            onChange={this.onChange}
+          />
+        </div>
+        <div className="form-group  my-3">
+          <label htmlFor="limit">Stan magazynowy</label>
+          <input
+            className="form-control"
+            min="0"
+            type="number"
+            name="limit"
+            placeholder="0"
+            id="limit"
+            value={this.state.limit}
+            errors={errors.limit}
             onChange={this.onChange}
           />
         </div>

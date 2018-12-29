@@ -11,9 +11,10 @@ import jwt_decode from "jwt-decode";
 import Navbar from "./components//layout/Navbar";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import Home from "./components/layout/Home";
+import Home from "./components/home/Home";
 import Dashboard from "./components/admin/Dashboard";
 import Footer from "./components/layout/Footer";
+import Cart from "./components/cart/Cart";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -35,6 +36,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route path="/admin" component={Dashboard} />
+            <Route path="/cart" component={Cart} />
             <Footer />
           </React.Fragment>
         </Router>

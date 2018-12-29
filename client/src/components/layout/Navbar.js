@@ -16,6 +16,27 @@ class Navbar extends Component {
       <React.Fragment>
         <li className="nav-item">
           <Link
+            style={{ position: "relative" }}
+            className="nav-link"
+            to="/cart"
+            onClick={this.props.toggleMenu}
+          >
+            <i className="fas fa-shopping-cart fa-lg" />
+            <span
+              style={{
+                color: "orange",
+                fontWeight: "bold",
+                position: "absolute",
+                right: "2px",
+                bottom: "0px"
+              }}
+            >
+              {this.props.products.cart.length}
+            </span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
             className="nav-link"
             to="/login"
             onClick={this.props.toggleMenu}
@@ -36,6 +57,27 @@ class Navbar extends Component {
     );
     const loggedNavLinks = (
       <React.Fragment>
+        <li className="nav-item">
+          <Link
+            style={{ position: "relative" }}
+            className="nav-link"
+            to="/cart"
+            onClick={this.props.toggleMenu}
+          >
+            <i className="fas fa-shopping-cart fa-lg" />
+            <span
+              style={{
+                color: "orange",
+                fontWeight: "bold",
+                position: "absolute",
+                right: "2px",
+                bottom: "0px"
+              }}
+            >
+              {this.props.products.cart.length}
+            </span>
+          </Link>
+        </li>
         {this.props.auth.user.role === 0 ? (
           <li className="nav-item">
             <Link
@@ -47,6 +89,7 @@ class Navbar extends Component {
             </Link>
           </li>
         ) : null}
+
         <li className="nav-item">
           <Link className="nav-link" to="#" onClick={this.props.toggleMenu}>
             <i className="fas fa-user mr-1" />
@@ -98,7 +141,8 @@ Navbar.propTypes = {
 
 const mapStateToProps = state => ({
   collapse: state.menu.collapse,
-  auth: state.auth
+  auth: state.auth,
+  products: state.products
 });
 
 export default connect(

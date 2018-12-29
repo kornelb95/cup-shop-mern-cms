@@ -3,11 +3,11 @@ import {
   GET_USERS,
   GET_USER,
   DELETE_USER,
-  GET_PRODUCTS,
+  GET_ADMIN_PRODUCTS,
   DELETE_PRODUCT,
-  GET_PRODUCT_TYPES,
+  GET_ADMIN_PRODUCT_TYPES,
   DELETE_PRODUCT_TYPE,
-  GET_PRODUCT_CATEGORIES,
+  GET_ADMIN_PRODUCT_CATEGORIES,
   DELETE_PRODUCT_CATEGORY
 } from "../actions/types";
 
@@ -44,7 +44,7 @@ export default function(state = initialState, action) {
         ...state,
         users: state.users.filter(user => user._id !== action.payload)
       };
-    case GET_PRODUCT_CATEGORIES:
+    case GET_ADMIN_PRODUCT_CATEGORIES:
       return {
         ...state,
         prodCategories: action.payload,
@@ -57,7 +57,7 @@ export default function(state = initialState, action) {
           prodCategory => prodCategory._id !== action.payload
         )
       };
-    case GET_PRODUCTS:
+    case GET_ADMIN_PRODUCTS:
       return {
         ...state,
         products: action.payload,
@@ -70,7 +70,7 @@ export default function(state = initialState, action) {
           product => product._id !== action.payload
         )
       };
-    case GET_PRODUCT_TYPES:
+    case GET_ADMIN_PRODUCT_TYPES:
       return {
         ...state,
         productTypes: action.payload,

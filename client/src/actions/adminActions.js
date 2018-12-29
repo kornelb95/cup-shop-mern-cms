@@ -5,11 +5,11 @@ import {
   GET_USERS,
   GET_USER,
   DELETE_USER,
-  GET_PRODUCTS,
+  GET_ADMIN_PRODUCTS,
   DELETE_PRODUCT,
-  GET_PRODUCT_TYPES,
+  GET_ADMIN_PRODUCT_TYPES,
   DELETE_PRODUCT_TYPE,
-  GET_PRODUCT_CATEGORIES,
+  GET_ADMIN_PRODUCT_CATEGORIES,
   DELETE_PRODUCT_CATEGORY
 } from "./types";
 
@@ -92,7 +92,7 @@ export const fetchProductCategories = () => dispatch => {
   dispatch(setLoading());
   axios.get("/admin/productCategories").then(res =>
     dispatch({
-      type: GET_PRODUCT_CATEGORIES,
+      type: GET_ADMIN_PRODUCT_CATEGORIES,
       payload: res.data
     })
   );
@@ -131,12 +131,17 @@ export const fetchProducts = () => dispatch => {
   dispatch(setLoading());
   axios.get("/admin/products").then(res =>
     dispatch({
-      type: GET_PRODUCTS,
+      type: GET_ADMIN_PRODUCTS,
       payload: res.data
     })
   );
 };
 export const createProduct = (data, history) => dispatch => {
+  //   const config = {
+  //     headers: {
+  //         'content-type': 'multipart/form-data'
+  //     }
+  // }
   axios
     .post("/admin/products", data)
     .then(res => {
@@ -199,7 +204,7 @@ export const fetchProductTypes = () => dispatch => {
   dispatch(setLoading());
   axios.get("/admin/productTypes").then(res =>
     dispatch({
-      type: GET_PRODUCT_TYPES,
+      type: GET_ADMIN_PRODUCT_TYPES,
       payload: res.data
     })
   );

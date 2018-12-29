@@ -9,6 +9,7 @@ const apiAdminUsers = require("./api/admin/users");
 const apiAdminProductCategory = require("./api/admin/productCategory");
 const apiAdminProductType = require("./api/admin/productType");
 const apiAdminProduct = require("./api/admin/product");
+const apiProducts = require("./api/products");
 //MongoDB
 const db = require("./config/keys").mongoURI;
 mongoose
@@ -34,6 +35,7 @@ app.use("/admin/users", apiAdminUsers);
 app.use("/admin/productCategories", apiAdminProductCategory);
 app.use("/admin/productTypes", apiAdminProductType);
 app.use("/admin/products", apiAdminProduct);
+app.use("/products", apiProducts);
 
 const port = process.env.PORT || 5000;
 
