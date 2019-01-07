@@ -1,17 +1,51 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { addProductToCart } from "../../actions/productsActions";
+import { Link, withRouter } from "react-router-dom";
+
+import {
+  addProductToCart,
+  addProductToLiked,
+  deleteLikedProduct,
+  fetchLikedProducts
+} from "../../actions/productsActions";
 class ProductCard extends Component {
-  state = {
-    liked: false
-  };
-  handleLike = () => {
-    this.setState({
-      liked: !this.state.liked
-    });
+  handleLike = (user, product, action) => {
+    const data = {
+      user,
+      product
+    };
+    action(data, this.props.history);
+    this.props.fetchLikedProducts();
   };
   render() {
+    const { likedProducts } = this.props.products;
+    const { user, isAuthenticated } = this.props.auth;
+    const liked = likedProducts.find(
+      likedProduct =>
+        likedProduct.product._id === this.props.product._id &&
+        likedProduct.user._id === user.id
+    );
+    const action = liked
+      ? () =>
+          this.handleLike(
+            user.id,
+            this.props.product._id,
+            this.props.deleteLikedProduct
+          )
+      : () =>
+          this.handleLike(
+            user.id,
+            this.props.product._id,
+            this.props.addProductToLiked
+          );
+    const likeHearth = isAuthenticated ? (
+      <Link
+        to="#"
+        onClick={() => this.handleLike(user.id, this.props.product._id, action)}
+      >
+        <i className={`${liked ? "fas" : "far"} fa-heart fa-lg text-danger`} />
+      </Link>
+    ) : null;
     return (
       <div className="card my-5 offset-md-1 col-md-3 ">
         <img
@@ -38,13 +72,7 @@ class ProductCard extends Component {
             </small>
           </p>
           <div className="d-flex justify-content-between">
-            <Link to="#" onClick={this.handleLike}>
-              <i
-                className={`${
-                  this.state.liked ? "fas" : "far"
-                } fa-heart fa-lg text-danger`}
-              />
-            </Link>
+            {likeHearth}
             <button
               type="button"
               className="btn btn-outline-success"
@@ -61,8 +89,16 @@ class ProductCard extends Component {
     );
   }
 }
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  auth: state.auth,
+  products: state.products
+});
 export default connect(
   mapStateToProps,
-  { addProductToCart }
-)(ProductCard);
+  {
+    addProductToCart,
+    addProductToLiked,
+    deleteLikedProduct,
+    fetchLikedProducts
+  }
+)(withRouter(ProductCard));

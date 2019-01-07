@@ -5,7 +5,10 @@ import {
   GET_PRODUCT_CATEGORIES,
   ADD_PRODUCT_TO_CART,
   SUBTRACT_PRODUCT_TO_CART,
-  DELETE_FROM_CART
+  DELETE_FROM_CART,
+  FILTER_PROD_CATEGORIES,
+  GET_LIKED_PRODUCTS,
+  DELETE_LIKED_PRODUCT
 } from "../actions/types";
 
 const initialState = {
@@ -13,7 +16,9 @@ const initialState = {
   prodCategories: {},
   products: {},
   productTypes: {},
-  cart: []
+  cart: [],
+  filterCategory: "",
+  likedProducts: []
 };
 
 export default function(state = initialState, action) {
@@ -74,6 +79,25 @@ export default function(state = initialState, action) {
         ...state,
         cart: state.cart.filter(cartitem => cartitem.id !== action.payload)
       };
+    case FILTER_PROD_CATEGORIES:
+      return {
+        ...state,
+        filterCategory: action.payload
+      };
+    case GET_LIKED_PRODUCTS:
+      return {
+        ...state,
+        likedProducts: action.payload,
+        loading: false
+      };
+    case DELETE_LIKED_PRODUCT:
+      return {
+        ...state,
+        likedProducts: state.likedProducts.filter(
+          likedProduct => likedProduct.product._id !== action.payload
+        )
+      };
+
     default:
       return state;
   }

@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import {
   fetchProductCategories,
   fetchProducts,
-  fetchProductTypes
+  fetchProductTypes,
+  fetchLikedProducts
 } from "../../actions/productsActions";
 import ScrollNav from "../layout/ScrollNav";
 import Spinner from "../common/Spinner";
@@ -14,14 +15,20 @@ class Home extends Component {
     this.props.fetchProductCategories();
     this.props.fetchProductTypes();
     this.props.fetchProducts();
+    this.props.fetchLikedProducts();
   }
   render() {
-    let { products, loading } = this.props.products;
+    let { products, loading, filterCategory } = this.props.products;
     let content = "";
     if (loading) {
       content = <Spinner />;
     } else {
       products = Object.values(products);
+      if (filterCategory !== "") {
+        products = products.filter(
+          product => product.productCategory._id === filterCategory
+        );
+      }
       content = products.map(product => (
         <ProductCard key={product._id} product={product} />
       ));
@@ -30,16 +37,22 @@ class Home extends Component {
       <React.Fragment>
         <ScrollNav />
         <div className="container">
-          <section className="row justify-content-between">{content}</section>
+          <section className="row">{content}</section>
         </div>
       </React.Fragment>
     );
   }
 }
 const mapStateToProps = state => ({
-  products: state.products
+  products: state.products,
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,
-  { fetchProductCategories, fetchProducts, fetchProductTypes }
+  {
+    fetchProductCategories,
+    fetchProducts,
+    fetchProductTypes,
+    fetchLikedProducts
+  }
 )(Home);

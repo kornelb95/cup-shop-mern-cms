@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { filterProductCategories } from "../../actions/productsActions";
 class ScrollNav extends Component {
   render() {
     let links = null;
@@ -25,27 +25,39 @@ class ScrollNav extends Component {
         );
         break;
       default:
-        links = (
-          <React.Fragment>
-            <Link className="nav-link text-white" to="/category">
-              Kategorie
-            </Link>
-            <Link className="nav-link text-white" to="/promo">
-              Typy
-            </Link>
-          </React.Fragment>
-        );
+        links = Object.values(this.props.productCategories).map(category => (
+          <Link
+            key={category._id}
+            className="nav-link text-white"
+            to="#"
+            onClick={() => this.props.filterProductCategories(category._id)}
+          >
+            {category.name}
+          </Link>
+        ));
         break;
     }
 
     return (
       <div className="nav-scroller bg-info shadow-lg fixed-top">
-        <nav className="nav nav-underline">{links}</nav>
+        <nav className="nav nav-underline">
+          <Link
+            className="nav-link text-white"
+            to="#"
+            onClick={() => this.props.filterProductCategories("")}
+          >
+            Wszystkie
+          </Link>
+          {links}
+        </nav>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  productCategories: state.products.prodCategories
+});
 export default connect(
-  null,
-  null
+  mapStateToProps,
+  { filterProductCategories }
 )(ScrollNav);
