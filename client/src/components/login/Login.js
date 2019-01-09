@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import FacebookLogin from "react-facebook-login";
-
+import { facebookid } from "../../config/config";
 import { login, loginFb } from "../../actions/authActions";
 import TextInput from "../common/TextInput";
 
@@ -72,7 +72,7 @@ class Login extends Component {
           </button>
           <div className="mt-3 text-center">
             <FacebookLogin
-              appId="622298041444585"
+              appId={facebookid}
               autoload={true}
               fields="name,email,picture"
               callback={this.responseFacebook}
