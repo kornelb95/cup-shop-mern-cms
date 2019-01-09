@@ -35,12 +35,7 @@ class ScrollNav extends Component {
             {category.name}
           </Link>
         ));
-        break;
-    }
-
-    return (
-      <div className="nav-scroller bg-info shadow-lg fixed-top">
-        <nav className="nav nav-underline">
+        links.unshift(
           <Link
             className="nav-link text-white"
             to="#"
@@ -48,8 +43,13 @@ class ScrollNav extends Component {
           >
             Wszystkie
           </Link>
-          {links}
-        </nav>
+        );
+        break;
+    }
+
+    return (
+      <div className="nav-scroller bg-info shadow-lg fixed-top">
+        <nav className="nav nav-underline">{links}</nav>
       </div>
     );
   }
