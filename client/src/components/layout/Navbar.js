@@ -78,7 +78,7 @@ class Navbar extends Component {
             </span>
           </Link>
         </li>
-        {this.props.auth.user.role === 0 ? (
+        {this.props.auth.user.role === 0 || this.props.auth.user.role === 1 ? (
           <li className="nav-item">
             <Link
               className="nav-link"
@@ -91,7 +91,11 @@ class Navbar extends Component {
         ) : null}
 
         <li className="nav-item">
-          <Link className="nav-link" to="#" onClick={this.props.toggleMenu}>
+          <Link
+            className="nav-link"
+            to="/profile/liked"
+            onClick={this.props.toggleMenu}
+          >
             <i className="fas fa-user mr-1" />
             {this.props.auth.user.email}
           </Link>

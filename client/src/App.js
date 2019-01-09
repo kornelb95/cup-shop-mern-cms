@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
 import setToken from "./functions/setToken";
-import { setUser } from "./actions/authActions";
+import { setUser, logoutUser } from "./actions/authActions";
 import jwt_decode from "jwt-decode";
 
 import Navbar from "./components//layout/Navbar";
@@ -15,6 +15,7 @@ import Home from "./components/home/Home";
 import Dashboard from "./components/admin/Dashboard";
 import Footer from "./components/layout/Footer";
 import Cart from "./components/cart/Cart";
+import Profile from "./components/profile/Profile";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -23,6 +24,14 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and isAuthenticated
   store.dispatch(setUser(decoded));
+
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "/login";
+  }
 }
 
 class App extends Component {
@@ -37,6 +46,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route path="/admin" component={Dashboard} />
             <Route path="/cart" component={Cart} />
+            <Route path="/profile" component={Profile} />
             <Footer />
           </React.Fragment>
         </Router>
