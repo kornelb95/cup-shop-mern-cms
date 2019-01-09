@@ -51,9 +51,8 @@ class ProductCard extends Component {
         <img
           className="card-img-top my-3"
           style={{ height: "200px" }}
-          src={require(`../../../../uploads/${
-            this.props.product.productImage
-          }`)}
+          src={require("../../../../uploads/" +
+            this.props.product.productImage)}
           alt={this.props.product.name}
         />
         <div className="card-body">
