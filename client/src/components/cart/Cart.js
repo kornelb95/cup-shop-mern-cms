@@ -33,7 +33,7 @@ class Cart extends Component {
             <hr />
           </div>
           <div className="card-footer d-flex">
-            <div className="coupon col-md-5 col-sm-5 no-padding-left">
+            {/* <div className="coupon col-md-5 col-sm-5 no-padding-left">
               <div className="row">
                 <div className="col-6">
                   <input
@@ -48,9 +48,9 @@ class Cart extends Component {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="ml-auto text-right" style={{ margin: "10px" }}>
-              <div className="">Cena całkowita: {totalPrice} zł</div>
+              <div className="">Cena całkowita: {totalPrice.toFixed(2)} zł</div>
               <a href="dssadas" className="btn btn-success ">
                 Zatwierdź
               </a>

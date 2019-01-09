@@ -62,7 +62,7 @@ router.post(
 );
 /*
 @public GET
-@pobranie wszystkich produktów
+@pobranie wszystkich ulubionych produktów
 */
 router.get("/likedproduct", (req, res) => {
   LikedProduct.find()
